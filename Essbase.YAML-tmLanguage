@@ -1,0 +1,71 @@
+fileTypes: [csc]
+foldingStartMarker: ^\s*/\*|^(?![^{]*?//|[^{]*?/\*(?!.*?\*/.*?\{)).*?\{\s*($|//|/\*(?!.*?\*/.*\S))
+foldingStopMarker: ^\s*\*/|^\s*\}
+keyEquivalent: ^~C
+name: Essbase
+patterns:
+- begin: ///
+  captures:
+    '0': {name: punctuation.definition.comment.source.css}
+  end: $\n?
+  name: comment.block.documentation.source.css
+  patterns:
+  - begin: (</?)(?:([-_a-zA-Z0-9]+)((:)))?([-_a-zA-Z0-9:]+)
+    end: (/?>)
+    name: keyword.other.documentation.source.css
+    patterns:
+    - {include: '#doubleQuotedString'}
+    - {include: '#singleQuotedString'}
+- {include: '#comments'}
+- {match: \b(ON|OFF|HIGH|LOW|SUMMARY)\b, name: constant.language.source.css}
+- {match: '\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\b',
+  name: constant.numeric.source.css}
+- {match: \b(FIX|EXCLUDE|LOOP|IF|ENDFIX|ENDEXCLUDE|ENDLOOP|ENDIF)\b, name: keyword.control.source.css}
+- {match: \b(DATAEXPORTOPTIONS|DATAIMPORTIGNORETIMESTAMP|AGGMISSG|CACHE|CCTRACKCALC|CLEARUPDATESTATUS|FRMLBOTTOMUP|FRMLRTDYNAMIC|LOCKBLOCK|MSG|NOTICE|REMOTECALC|UPDATECALC|UPTOLOCAL|CALCPARALLEL|CALCTASKDIMS|EMPTYMEMBERSETS|CREATEBLOCKONEQ)\b,
+  name: keyword.operator.source.css}
+- {match: \b(ABS|ACCUM|ALLANCESTORS|ALLOCATE|ANCEST|ANCESTORS|ANCESTVAL|ATTRIBUTE|ATTRIBUTEBVAL|ATTRIBUTESVAL|ATTRIBUTEVAL|AVG|AVGRANGE|CHILDREN|COMPOUND|COMPOUNDGROWTH|CORRELATION|COUNT|CURGEN|CURLEV|CURRMBR|CURRMBRRANGE|DECLINE|DESCENDANTS|DISCOUNT|EXP|FACTORIAL|GEN|GENMBRS|GROWTH|IALLANCESTORS|IANCESTORS|ICHILDREN|IDESCENDANTS|ILANCESTORS|ILDESCENDANTS|ILSIBLINGS|INT|INTEREST|IRDESCENDANTS|IRR|IRSIBLINGS|ISACCTYPE|ISANCEST|ISCHILD|ISDESC|ISGEN|ISIANCEST|ISIBLINGS|ISICHILD|ISIDESC|ISIPARENT|ISISIBLING|ISLEV|ISMBR|ISPARENT|ISSAMEGEN|ISSAMELEV|ISSIBLING|ISUDA|LANCESTORS|LDESCENDANTS|LEV|LEVMBRS|LIST|LN|LOG|LOG10|LSIBLINGS|MATCH|MAX|MAXRANGE|MAXS|MAXSRANGE|MDALLOCATE|MDANCESTVAL|MDPARENTVAL|MDSHIFT|MEDIAN|MEMBER|MERGE|MIN|MINRANGE|MINS|MINSRANGE|MOD|MODE|MOVAVG|MOVMAX|MOVMED|MOVMIN|MOVSUM|MOVSUMX|NAME|NEXT|NEXTS|NEXTSIBLING|NPV|PARENT|PARENTVAL|POWER|PREVSIBLING|PRIOR|PRIORS|PTD|RANGE|RANK|RDESCENDANTS|RELATIVE|REMAINDER|REMOVE|ROUND|RSIBLINGS|SANCESTVAL|SHIFT|SHIFTMINUS|SHIFTPLUS|SHIFTSIBLING|SIBLINGS|SLN|SPARENTVAL|SPLINE|STDEV|STDEVP|STDEVRANGE|SUM|SUMRANGE|SYD|TODATE|TREND|TRUNCATE|UDA|VAR|VARIANCE|VARIANCEP|VARPER|WITHATTR|XRANGE|XREF)\b,
+  name: keyword.other.source.css}
+- {match: \b(SET|ARRAY|VAR|ELSEIF|TO|AGG|CALC|ALL|CALC|AVERAGE|CALC|DIM|CALC|FIRST|CALC|LAST|CALC|TWOPASS|CCONV|CLEARBLOCK|CLEARCCTRACK|CLEARDATA|DATACOPY|DATAEXPORT|DATAEXPORTCOND|DATAIMPORTBIN)\b,
+  name: storage.modifier.source.css}
+- {include: '#doubleQuotedStringLiteral'}
+- {include: '#doubleQuotedString'}
+- {include: '#singleQuotedString'}
+repository:
+  comments:
+    patterns:
+    - begin: /\*
+      captures:
+        '0': {name: punctuation.definition.comment.source.css}
+      end: \*/\n?
+      name: comment.block.source.css
+    - captures:
+        '1': {name: punctuation.definition.comment.source.css}
+      match: (//).*$\n?
+      name: comment.line.double-slash.source.css
+  doubleQuotedString:
+    begin: '"'
+    beginCaptures:
+      '0': {name: punctuation.definition.string.begin.source.css}
+    end: '"'
+    endCaptures:
+      '0': {name: punctuation.definition.string.end.source.css}
+    name: string.quoted.double.source.css
+    patterns:
+    - {match: \\., name: constant.character.escape.source.css}
+  doubleQuotedStringLiteral:
+    captures:
+      '0': {name: punctuation.definition.string.begin.source.css}
+    match: '@"([^"]|"")*"'
+    name: string.quoted.double.literal.source.css
+  singleQuotedString:
+    begin: ''''
+    beginCaptures:
+      '0': {name: punctuation.definition.string.begin.source.css}
+    end: ''''
+    endCaptures:
+      '0': {name: punctuation.definition.string.end.source.css}
+    name: string.quoted.single.xml
+    patterns:
+    - {match: \\., name: constant.character.escape.source.css}
+scopeName: source.css
+uuid: 1BA73C32-707C-11D9-A928-000D93589AB9
